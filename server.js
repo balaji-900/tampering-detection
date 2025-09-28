@@ -16,6 +16,13 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Railway gives this automatically
   ssl: { rejectUnauthorized: false }
 });
+pool.query("SELECT NOW()", (err, result) => {
+  if (err) {
+    console.error("DB connection failed:", err);
+  } else {
+    console.log("DB connected:", result.rows);
+  }
+});
 
 // Create table if not exists
 const initDB = async () => {
